@@ -1,0 +1,166 @@
+/************* Body *************/
+@font-face {
+    font-family: roboto;
+    src: url(..fonts/Roboto-Regular.eot),
+    url(../fonts/Roboto-Regular.ttf),
+    url(../fonts/Roboto-Regular.woff),
+    url(../fonts/Roboto-Regular.woff2);
+}
+
+body{
+    background-color: #EEEEEE;
+    font-family: roboto;
+    margin: 0;
+    padding: 0;
+}
+
+/********** Header **********/
+header{
+  background-color: #ffffff;
+  padding: 16px 0;
+  -webkit-box-shadow: 1px 3px 12px 1px rgba(66,66,66,0.52);
+  box-shadow: 1px 3px 12px 1px rgba(66,66,66,0.52);
+}
+
+header div.logo h2{
+  margin-left: 35px;
+  color: #616161;
+}
+header div.logo h2 span{
+  color: #D50000;
+  font-weight: bold;
+}
+
+header nav a{
+  color: #616161;
+}
+
+header nav a:hover{
+  color: #F25252;
+  -webkit-transition: color ease 0.4s;
+  -moz-transition: color ease 0.4s;
+  -o-transition: color ease 0.4s;
+  transition: color ease 0.4s;
+}
+
+main{
+  height: auto;
+  margin: 20px 0;
+}
+
+div.blocks{
+  margin: 20px 0;
+  height: auto;
+}
+section.rebin-card{
+  background-color: #ffffff;
+  height: auto;
+  -webkit-box-shadow: -1px 0px 10px -3px rgba(66,66,66,1);
+  -moz-box-shadow: -1px 0px 10px -3px rgba(66,66,66,1);
+  box-shadow: -1px 0px 10px -3px rgba(66,66,66,1);
+
+}
+
+section.rebin-card .head{
+  width: 100%;
+  -webkit-box-shadow: -1px 0px 10px -3px rgba(66,66,66,1);
+  -moz-box-shadow: -1px 0px 10px -3px rgba(66,66,66,1);
+  box-shadow: -1px 0px 10px -3px rgba(66,66,66,1);
+  border-top: solid 2px #D50000;
+}
+
+section.rebin-card .head p{
+    padding: 7px 7px;
+    color: #424242;
+}
+
+section.rebin-card .body ul{
+  list-style: none;
+  margin-top: -13px;
+}
+section.rebin-card .body ul li{
+  display: inline;
+  color: #9E9E9E;
+}
+section.rebin-card .body ul li span{
+  color: #616161;
+
+}
+section.rebin-card .body ul li table{
+  margin-left: 50px;
+  margin-top: -25px;
+}
+
+section.rebin-card .body ul li span.check{
+  color:#69f0ae;
+  padding: 0 2px;
+}
+section.rebin-card .body ul li span.fail{
+  font-size: 10px;
+  color:#ff5252;
+  padding: 0 2px;
+}
+
+section.rebin-card .body ul li li{
+
+  border: solid 2px red;
+}
+
+div.modal-button{
+  float: right;
+  margin: 10px 0;
+
+}
+div.modal-button button{
+  background-color: transparent;
+  border: none;
+  color: #D50000;
+}
+div.modal-button button:hover{
+  background-color: transparent;
+  border: none;
+  color: #D50000;
+
+}
+
+
+
+/********* check health modal list **********/
+ul.modal-list{
+  margin-bottom: 20px;
+
+}
+ul.modal-list li{
+  color: red;
+  border: none;
+  border-bottom: solid 2px #e0e0e0 !important;
+}
+
+/********************** SETTINGS **********************/
+div.settings{
+  width: 100%;
+  -webkit-box-shadow: -1px 0px 10px -3px rgba(66,66,66,1);
+  -moz-box-shadow: -1px 0px 10px -3px rgba(66,66,66,1);
+  box-shadow: -1px 0px 10px -3px rgba(66,66,66,1);
+  border-top: solid 4px #D50000;
+  height: auto;
+  background-color: #ffffff;
+}
+
+h4#setings-title{
+  margin: 10px 0;
+  padding-bottom: 5px;
+  color: #b71c1c;
+  border-bottom: solid 1px #e0e0e0;
+}
+section.service-ips form{
+  margin-bottom: 15px;
+}
+
+section.service-ips form input[type=submit]{
+  width: 50%;
+  height: 40px;
+  background-color: #d32f2f;
+  color: #ffffff;
+  border: none;
+}

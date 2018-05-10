@@ -1,0 +1,1 @@
+from myinstagram.bot_insta import InstagramAPI

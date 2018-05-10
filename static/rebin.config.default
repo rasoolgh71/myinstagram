@@ -1,0 +1,45 @@
+[GENERAL]
+#Number of concurrent pipes. Ideally cpu cores/4
+concurrency=1
+operator_name="PP"
+
+[SERVICE_IP]
+default_service="ADSL"
+DialUP=['192.168.0.0', '192.168.1.1', '127.0.0.1','240.0.0.1']
+IN=['255.235.245.1', '132.220.216.195','240.0.0.2']
+ADSL=['172.22.26.12', '25.169.25.26', '102.16.12.6', '172.12.1.12','240.0.0.3']
+WIRELESS=['101.2.15.26','240.0.0.4']
+WIMAX=['101.2.15.27', '120.15.13.105', '185.16.12.42','172.19.16.141','240.0.0.5']
+TDD_LTE=['232.25.26.20', '240.50.22.19','240.0.0.6']
+WIFI=['240.50.22.18','240.0.0.7']
+WIFI_MOBILE=['240.50.22.17','240.0.0.8']
+WIFI_OFFLOAD=['240.50.22.16','240.0.0.90']
+MOBILE_2G=['240.50.22.15','240.0.0.10']
+MOBILE_3G=['240.50.22.14','240.0.0.11']
+MOBILE_4G=['240.50.22.13','240.0.0.12']
+MOBILE_5G=['240.50.22.12','240.0.0.13']
+OUTBOUND=['240.50.22.11','240.0.0.14']
+
+[LOGGING]
+#Leave destination empty for local syslog. Otherwise IP:Port
+syslog_destination=""
+
+[KAFKA]
+broker="127.0.0.1"
+group="dataflow_consumers"
+topic="rebin_dataflow"
+
+[IPMAP_SOURCE]
+source="IBS"
+
+[IBS_IPMAP]
+redis_host="127.0.0.1"
+redis_port=6379
+redis_db=5
+
+[OUTPUT_DESTINATION]
+destination="SYSLOG"
+
+[SYSLOG_OUTPUT]
+#IP:Port to send output data
+syslog_destination="127.0.0.1:515"

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>{% load static %}
+{% load staticfiles %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="{% static 'jquery-3.2.1.min.js' %}"></script>
+
+<style>
+    fieldset {
+    display: block;
+    border-style: solid
+    margin-left: 5px;
+    margin-right: 2px;
+    padding-top: 0.35em;
+    padding-bottom: 0.625em;
+    padding-left: 0.7em;
+    padding-right: 0.75em;
+    border: 2px groove (internal value);
+}
+</style>
+</head>
+<body>
+<div id="some-div">
+    <a href="login">logout</a>
+</div>
+profil_pic:{{profile_pic_url}}
+<h1>follower</h1>
+{{follower_count1}}
+<b>{{following_count}}aa</b>
+<h1> welcom to instagram</h1>
+<table border="5">
+    <th>row</th>
+    <th>username</th>
+    <th>follower</th>
+    <th>following</th>
+    <tr>
+       <td>1</td>
+       <td>{{username}}</td>
+       <td>{{follower_count}}</td>
+       <td>{{following_count}}</td>
+    </tr>
+</table>
+ <div class="col-lg-4 col-md-4  col-sm-4 col-xs-10 login-wrapper">
+      <img class="img-fluid" src={{profile_pic_url}} style="width:200px;height:200px;">
+ </div>
+
+<h3> برنامه چه کارهایی انجام دهد .</h3>
+<form method="post" action="">
+    <legend>Personal settings:</legend>
+   {% csrf_token %}
+    <input type="checkbox" id="contactChoice" name="follow" value="followid"> follow<br>
+    <input type="checkbox" name="unfollow" value="unfollowid"> unfollow<br>
+    <input type="checkbox" name="like" value="likeid"> like<br>
+    <input type="checkbox" name="comment" value="commentid"> comment<br>
+    <input type="submit" value="send">
+</form>
+
+
+
+
+</body>
+</html>

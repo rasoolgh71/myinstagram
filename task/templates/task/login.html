@@ -1,0 +1,56 @@
+<html>
+<meta charset="UTF-8">
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- CSS -- >
+    <!-- Bootstrap -->
+    {% load static %}
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+    <!-- bootstrap Icons -->
+    <link href="{% static 'icons/font/css/open-iconic-bootstrap.css' %}" rel="stylesheet">
+</head>
+<body>
+  <div class="row">
+
+    <div class="col-lg-4 col-md-4 col-sm-4">
+    </div>
+
+    <div class="col-lg-4 col-md-4  col-sm-4 col-xs-10 login-wrapper">
+
+      <div class="login-form">
+        <div class="container">
+          <img class="img-fluid" src="{% static "logo/ig-logo-email.png" %}">
+
+        </div>
+        <form method="post" id="login" action="">
+          {%csrf_token%}
+          <div class="form-group">
+            <input type="text" class="form-control" id="username" placeholder="username" name="username">
+          </div>
+          <div class="form-group">
+
+            <input type="password" class="form-control" id="password" name="password" placeholder="password">
+          </div>
+          <input type="submit" value="Login" name="login">
+        </form>
+
+      </div>
+    </div>
+  </div>
+  <!-- JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+
+  <!-- chart.js customer -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
+  <!-- Custom JS -->
+  <script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
+</body>
+</html>
