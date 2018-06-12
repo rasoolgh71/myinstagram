@@ -17,18 +17,19 @@ from task.models import instagarm_login
 import datetime
 from django.utils import timezone
 from mylogging import auth_log
-from .models import instagram_follower,Settings
+from task.models import instagram_follower,Settings
+from instabot.bot import bot
 
 
 #from django.contrib.sessions.backends.cached_db import instagram
 
 
 tem=''
-following_count=0
-follower_count=0
-username=''
-profile_pic_url=''
-password=""
+#following_count=0
+#follower_count=0
+#username=''
+#profile_pic_url=''
+#password=""
 
 def home(request):
     return render(request,'task/home.html')
@@ -71,10 +72,10 @@ class LoginView(FormView):
 
 def login_insta(request):
     global tem
-    global following_count
-    global follower_count
-    global username
-    global profile_pic_url
+    #global following_count
+    #global follower_count
+    #global username
+   # global profile_pic_url
     #global username
     last_login=datetime.datetime.now()
     print("time is:",last_login)
@@ -88,10 +89,10 @@ def login_insta(request):
             #return HttpResponse(username,password)
             print('username:',username)
             print('password:',password)
-            tem = bot_insta.InstagramAPI(username=str(username), password=str(password))
+            tem = bot.Bot()
             #request.session["username"]=username
-            login = tem.Login()
-            if (login ==True):
+            check_login = tem.login(username=username,password=password)
+            if (check_login ==True):
                 #update data repeate
                 count_row_login = instagarm_login.objects.count()
                 for i in range(count_row_login):
@@ -105,9 +106,9 @@ def login_insta(request):
                     except:
                         r.delete()
                 # get info instagram
-                following_count=tem.set_following()
-                follower_count=tem.set_follower()
-                profile_pic_url=tem.set_profile_pic()
+                #following_count=tem.set_following()
+                #follower_count=tem.set_follower()
+                #profile_pic_url=tem.set_profile_pic()
                 #tem.getTotalFollowers()
 
 
@@ -126,10 +127,10 @@ def login_insta(request):
 
 def get_insta(request):
     global tem
-    global following_count
-    global follower_count
-    global username
-    global profile_pic_url
+    #global following_count
+    #global follower_count
+    #global username
+    #global profile_pic_url
 
     #tem.getTotalFollowers(4129588825)
     #follower=tem.getTotalFollowers1(7035582061)
@@ -149,7 +150,7 @@ def get_insta(request):
         follow=bool(request.POST.get('follow'))
         unfollow =bool(request.POST.get('unfollow'))
         like =bool(request.POST.get('like'))
-        comment =bool (request.POST.get('comment'))
+        comment =bool(request.POST.get('comment'))
         print(type(follow))
         print("follow",follow)
         print("unfollow", unfollow)
@@ -162,17 +163,26 @@ def get_insta(request):
         else:
             print("else ")
             Settings.objects.update(follow=follow,unfollow=unfollow, like=like, comment=comment)
+
+    p = Settings.objects.all()[0]
+    print("folow value:", p.follow)
+    value_follow = p.follow
+    value_unfollow = p.unfollow
+    value_like = p.like
+    value_commemnt = p.comment
     #gt=Settings.objects.all()
     #print(gt)
     value_follow=Settings.objects.all()
     #print(value_follow)
     #for i in value_follow:
      #   field_name_val =bool(Settings.objects.get(i.follow))
+    if (value_follow == True):
+        p1 = instagram_follower.objects.values_list('pk_follower', flat=True)
     field_name_val = bool(getattr(Settings,'follow'))
     print(field_name_val)
     #if(follow1==)
 
-    return render(request,'task/insta.html',context={'following_count':following_count,'follower_count':follower_count,
-                                                     'username':username,'profile_pic_url':profile_pic_url})
+    return render(request,'task/insta.html',context={'value_follow':value_follow,'value_unfollow':value_unfollow,
+                                                     'value_like':value_like,'value_commemnt':value_commemnt})
 
 
