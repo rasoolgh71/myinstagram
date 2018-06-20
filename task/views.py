@@ -13,11 +13,10 @@ import requests
 import json
 from myinstagram import bot_insta
 import webbrowser
-from task.models import instagarm_login
 import datetime
 from django.utils import timezone
 from mylogging import auth_log
-from task.models import instagram_follower,Settings
+from task.models import instagarm_login,Settings,instagram_follower
 from instabot.bot import bot
 
 
@@ -25,11 +24,6 @@ from instabot.bot import bot
 
 
 tem=''
-#following_count=0
-#follower_count=0
-#username=''
-#profile_pic_url=''
-#password=""
 
 def home(request):
     return render(request,'task/home.html')
@@ -44,7 +38,6 @@ class LoginView(FormView):
     template_name = 'task/view_login.html'
     success_url = 'task/login/'
     form_class = AuthenticationForm
-    #form = Login_view
 
     def post(self, request):
         #form = Login_view
@@ -59,11 +52,9 @@ class LoginView(FormView):
 
 
                 print("login is true")
-                #userlogin = self.request.POST['username']
                 auth_log.login_auth(username)
                 return HttpResponseRedirect('login')
             else:
-                #log_error.log_error("login failed")
                 return HttpResponseRedirect('/view_login')
             return render(request, 'task/view_login.html')
         except Exception as e:
@@ -84,44 +75,58 @@ def login_insta(request):
         try:
             username = request.POST.get('username','')
             password = request.POST.get('password','')
-            #username1=requests.session().get(username)
-            #print("username1:",username1)
-            #return HttpResponse(username,password)
             print('username:',username)
             print('password:',password)
             tem = bot.Bot()
-            #request.session["username"]=username
+            request.session["username"]=username
             check_login = tem.login(username=username,password=password)
             if (check_login ==True):
                 #update data repeate
+                #count_row_login = instagarm_login.objects.count()
+                #for i in range(count_row_login):
+                user_id=tem.get_user_id_from_username(username)
+                print("user_id",user_id)
+                profil_pic_url=tem.get_profile_pic_url(user_id)
+                print("profil_pic_url",profil_pic_url)
+                follower_count=tem.get_follower_count(user_id)
+                print("follower_count",follower_count)
+                following_count=tem.get_following_count(user_id)
+                print("following_count",following_count)
+                total_follows=tem.total['follows']
+                print("totol",total_follows)
+
                 count_row_login = instagarm_login.objects.count()
-                for i in range(count_row_login):
-                    #print("i",i)
-                    new_login = instagarm_login(username=username, password=password, last_login=last_login)
+                row_login=instagarm_login.objects.all()
+
+
+                new_login = instagarm_login(username=username, password=password, last_login=last_login,
+                                            following_count=following_count, follower_count=follower_count,
+                                            profil_pic_url=profil_pic_url, total_follows=total_follows,
+                                            user_id=user_id)
+
+                person, created = instagarm_login.objects.get_or_create(user_id=user_id)
+                if created:
+                    print("user no exixit,new user create")
                     new_login.save()
-                row = instagarm_login.objects.all()
-                for r in row:
+                else:
+                    print(" user exisit,update user ")
+                    instagarm_login.objects.filter(user_id=user_id).update(username=username, password=password,
+                                                   last_login=last_login,
+                                                   following_count=following_count, follower_count=follower_count,
+                                                   profil_pic_url=profil_pic_url, total_follows=total_follows,
+                                                   user_id=user_id)
+
+                for r in row_login:
                     try:
-                       instagarm_login.objects.get(username=r.username)
+                        instagarm_login.objects.get(username=r.username)
                     except:
                         r.delete()
-                # get info instagram
-                #following_count=tem.set_following()
-                #follower_count=tem.set_follower()
-                #profile_pic_url=tem.set_profile_pic()
-                #tem.getTotalFollowers()
-
-
-
                 return HttpResponseRedirect('/insta')
-                #tem.getTotalFollowers(4129588825)
-
             else:
-                print("login is false")
+
                 return HttpResponseRedirect('/login')
         except Exception as e:
             print(e)
-
     return render(request, 'task/login.html')
     #return render(request, 'task/insta.html',context={username:"usrname"})
 
@@ -144,7 +149,7 @@ def get_insta(request):
     #             #print(new_follower)
     #             new_follower.delete()
 
-    count_row_follow = instagram_follower.objects.count()
+    #count_row_follow = instagram_follower.objects.count()
     if request.method == "POST":
 
         follow=bool(request.POST.get('follow'))
@@ -156,33 +161,59 @@ def get_insta(request):
         print("unfollow", unfollow)
         print("like",like)
         print("comment",comment)
-        count_row_settings=Settings.objects.count()
-        new_setings = Settings(follow=follow, unfollow=unfollow, like=like, comment=comment)
-        if(count_row_settings<1):
-            new_setings.save()
-        else:
-            print("else ")
-            Settings.objects.update(follow=follow,unfollow=unfollow, like=like, comment=comment)
 
-    p = Settings.objects.all()[0]
-    print("folow value:", p.follow)
-    value_follow = p.follow
-    value_unfollow = p.unfollow
-    value_like = p.like
-    value_commemnt = p.comment
+        username=request.session["username"]
+        #skill = Skill.objects.get(id=skill_id)
+        #name_skill = request.POST.get('name_skill', '')
+
+        #user_id = tem.get_user_id_from_username(username)
+        #user_pk=instagarm_login.objects.filter(username=username)
+        #userid=instagarm_login.bjects.get()
+        count_row_settings = Settings.objects.count()
+        row_settigngs=Settings.objects.all()
+        user_id=instagarm_login.objects.get(username=username)
+        new_setings = Settings(follow=follow, unfollow=unfollow, like=like, comment=comment,
+                               user_id=instagarm_login.objects.get(username=username))
+
+        if(count_row_settings>0):
+            for i in row_settigngs:
+                if(i.user_id==user_id):
+                    Settings.objects.update(follow=follow, unfollow=unfollow, like=like, comment=comment,
+                                            user_id=instagarm_login.objects.get(username=username))
+                else:
+                    new_setings.save()
+        else:
+            new_setings.save()
+
+        value = Settings.objects.get(user_id=user_id)
+        print("value follow", value.follow)
+        print("value unfollow", value.unfollow)
+        value_follow=value.follow
+        value_unfollow=value.unfollow
+        value_like=value.like
+        value_comment=value.comment
+        return render(request, 'task/insta.html',
+                      context={'value_follow': value_follow, 'value_unfollow': value_unfollow,
+                               'value_like': value_like, 'value_comment': value_comment})
+
+           # print("folow value:", p.follow)
+            #value_follow = p.follow
+            #value_unfollow = p.unfollow
+            #value_like = p.like
+            #value_commemnt = p.comment
     #gt=Settings.objects.all()
     #print(gt)
-    value_follow=Settings.objects.all()
+
     #print(value_follow)
     #for i in value_follow:
      #   field_name_val =bool(Settings.objects.get(i.follow))
-    if (value_follow == True):
-        p1 = instagram_follower.objects.values_list('pk_follower', flat=True)
-    field_name_val = bool(getattr(Settings,'follow'))
-    print(field_name_val)
+    #if (value_follow == True):
+       # p1 = instagram_follower.objects.values_list('pk_follower', flat=True)
+    #field_name_val = bool(getattr(Settings,'follow'))
+    #print(field_name_val)
     #if(follow1==)
 
-    return render(request,'task/insta.html',context={'value_follow':value_follow,'value_unfollow':value_unfollow,
-                                                     'value_like':value_like,'value_commemnt':value_commemnt})
+
+    return render(request,'task/insta.html')
 
 

@@ -17,7 +17,7 @@ requests.packages.urllib3.disable_warnings()
 if sys.version_info.major == 3:
    import urllib.parse
 import calendar
-from task.models import instagram_follower
+#from task.models import instagram_follower
 
 
 # The urllib library was split into other modules from Python 2 to Python 3
