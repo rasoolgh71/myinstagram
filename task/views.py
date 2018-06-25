@@ -162,7 +162,7 @@ def get_insta(request):
         print("like",like)
         print("comment",comment)
 
-        username=request.session["username"]
+
         #skill = Skill.objects.get(id=skill_id)
         #name_skill = request.POST.get('name_skill', '')
 
@@ -196,6 +196,8 @@ def get_insta(request):
                       context={'value_follow': value_follow, 'value_unfollow': value_unfollow,
                                'value_like': value_like, 'value_comment': value_comment})
 
+    username=request.session["username"]
+    print("username sesson:", username)
            # print("folow value:", p.follow)
             #value_follow = p.follow
             #value_unfollow = p.unfollow
@@ -212,8 +214,12 @@ def get_insta(request):
     #field_name_val = bool(getattr(Settings,'follow'))
     #print(field_name_val)
     #if(follow1==)
+    user_login=instagarm_login.objects.filter(username=username)
+    print(user_login)
+    #print(user_login.profil_pic_url)
 
+    return render(request, 'task/insta.html',{'user_login':user_login})
 
-    return render(request,'task/insta.html')
+    #return render(request,'task/insta.html',{'username':uername,follower:follower})
 
 

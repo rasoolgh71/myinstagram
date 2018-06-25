@@ -1,0 +1,6 @@
+{% extends "dashboard/admin_panel.html" %}
+{%load static%}
+{%block title%}Dashboard{%endblock%}
+{%block content%}
+<div class="alert alert-info">Welcome {{request.user.username}}</div>
+{%endblock%}

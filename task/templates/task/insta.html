@@ -1,7 +1,14 @@
 <!DOCTYPE html>
+{% extends "task/admin_panel.html" %}
+{%load static%}
+{%block title%}{%endblock%}
+{%block content%}
+{%for i in user_login %}
+<div class="alert alert-info">Welcome {{i.username}}</div>
+{%endfor%}
 <html lang="en">
-<head>{% load static %}
-{% load staticfiles %}
+<head>
+
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="{% static 'jquery-3.2.1.min.js' %}"></script>
@@ -22,28 +29,21 @@
 </head>
 <body>
 <div id="some-div">
-    <a href="login">logout</a>
 </div>
 profil_pic:{{profile_pic_url}}
 <h1>follower</h1>
 {{follower_count1}}
 <b>{{following_count}}aa</b>
 <h1> welcom to instagram</h1>
-<table border="5">
-    <th>row</th>
-    <th>username</th>
-    <th>follower</th>
-    <th>following</th>
-    <tr>
-       <td>1</td>
-       <td>{{username}}</td>
-       <td>{{follower_count}}</td>
-       <td>{{following_count}}</td>
-    </tr>
-</table>
- <div class="col-lg-4 col-md-4  col-sm-4 col-xs-10 login-wrapper">
-      <img class="img-fluid" src={{profile_pic_url}} style="width:200px;height:200px;">
- </div>
+
+        {%for data in user_login%}
+      username:{{data.username}}
+     follower:{{data.follower_count}}
+       following:{{data.following_count}}
+      {{data.profile_pic_url}}
+       <img class="img-fluid" src={{data.profil_pic_url}} style="width:200px;height:200px;">
+        {%endfor%}
+
 
 <h3> برنامه چه کارهایی انجام دهد .</h3>
 <form method="post" action="">
@@ -66,3 +66,4 @@ profil_pic:{{profile_pic_url}}
 
 </body>
 </html>
+{%endblock%}
