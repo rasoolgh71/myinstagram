@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^login$', views.login_insta, name='login'),
     url(r'^insta$', views.get_insta, name='insta'),
     url(r'^settings$', views.settings, name='settings'),
+    url(r'^follows$', views.follows, name='follows'),
 
     #url(r'^view_login$', views.view_login, name='view_login'),
     url(r'^view_login$', LoginView.as_view(), name='view_login'),

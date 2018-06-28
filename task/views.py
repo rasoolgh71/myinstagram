@@ -189,3 +189,6 @@ def settings(request):
                                                           'value_unfollow': value_unfollow,
                                                           'value_like': value_like,
                                                           'value_comment': value_comment})
+
+def follows(request):
+    return render(request,'task/follows.html')
