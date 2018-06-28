@@ -37,32 +37,12 @@ profil_pic:{{profile_pic_url}}
 <h1> welcom to instagram</h1>
 
         {%for data in user_login%}
-      username:{{data.username}}
-     follower:{{data.follower_count}}
-       following:{{data.following_count}}
-      {{data.profile_pic_url}}
-       <img class="img-fluid" src={{data.profil_pic_url}} style="width:200px;height:200px;">
+         username:{{data.username}}
+         follower:{{data.follower_count}}
+         following:{{data.following_count}}
+         {{data.profile_pic_url}}
+         <img class="img-fluid" src={{data.profil_pic_url}} style="width:200px;height:200px;">
         {%endfor%}
-
-
-<h3> برنامه چه کارهایی انجام دهد .</h3>
-<form method="post" action="">
-  <h3> برنامه چه کارهایی انجام دهد .</h3>
-<form method="post" action=" ">
-
-    <legend>Personal settings:</legend>
-   {% csrf_token %}
-
-    <input type="checkbox" name="follow"    {% if value_follow == True %} checked {% endif %} > follow<br>
-    <input type="checkbox" name="unfollow"  {% if value_unfollow == True %} checked {% endif %} > unfollow<br>
-    <input type="checkbox" name="like"      {% if value_like == True %} checked {% endif %} > like<br>
-    <input type="checkbox" name="comment"   {% if value_comment == True %} checked {% endif %}> comment<br>
-    <input type="submit" value="send">
-</form>
-</form>
-
-
-
 
 </body>
 </html>

@@ -1,0 +1,28 @@
+{% extends "task/admin_panel.html" %}
+{%load static%}
+{%block title%}All Product{%endblock%}
+{%block content%}
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Upload</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      {%for i in count_upload%}
+        <tr>
+            <td>{{i.title}}</td>
+            <td>{{i.description}}</td>
+            <td>{{i.price}}</td>
+            <td><img class="img-fluid" src="{% static 'media/'%}{{i.image}}" style="width:120px;height:120px;">
+            <td>{{i.time}}</td>
+        </tr>
+    {%endfor%}
+    </tbody>
+  </table>
+
+{%endblock%}
