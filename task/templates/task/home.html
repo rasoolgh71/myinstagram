@@ -5,10 +5,62 @@
 {% load staticfiles %}
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <script>
+window.onload = function () {
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	exportEnabled: true,
+    "marginRight": 40,
+    "marginLeft": 40,
+    "autoMarginOffset": 20,
+    "mouseWheelZoomEnabled":true,
+	theme: "light2",
+	title:{
+		text: "count follows Chart"
+	},
+		axisX: {
+		title: "datetime",
+		titleFontColor: "#FF0000",
+	},
+	axisY:{
+	    title: "count-of-follows",
+	    titleFontColor: "#FF0000",
+	    lineColor: "#4F81BC",
+	    tickColor: "#4F81BC",
+		includeZero: false
+	},
+	data: [{
+		type: "line",
+		dataPoints:  [{y : 10}, {y : 13}, {y : 18}, {y : 20}, {y : 25},{y : 30},{y : 35},{y : 15},{y : 40},{y : 45},{y : 50}]
+	},
+	]
+
+});
+
+chart.render();
+
+}
+chart.addListener("rendered", zoomChart);
+
+zoomChart();
+
+function zoomChart() {
+    chart.zoomToIndexes(chart.dataProvider.length - 40, chart.dataProvider.length - 1);
+}
+</script>
+</head>
+
+
+
 </head>
 <body>
 <h1>home</h1>
 <a href="view_login">login</a>
 <a href="https://t.me/bot1stets"><img class="img-fluid" src="{% static "index.jpeg" %}" style="width:70px;height:70px;"></a>
+
+<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
 </html>

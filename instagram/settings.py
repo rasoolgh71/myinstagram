@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_celery_beat',
     'task',
 ]
 
@@ -127,3 +128,10 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     '/var/www/static/',
 ]
+CELERY_BROKER_URL = 'amqp://'
+CELERY_RESULT_BACKEND ='db+sqlite:///django-db'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER='json'
+CELERY_RESULT_SERIALIZER='json'
+#CELERY_BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
+#CELERYBEAT_SYNC_EVERY = 2

@@ -121,18 +121,24 @@ def login_insta(request):
 
 def get_insta(request):
     global tem
+    username = request.session["username"]
     #tem.getTotalFollowers(4129588825)
-    #follower=tem.getTotalFollowers1(7035582061)
+    user_id = tem.get_user_id_from_username(username)
+    follower=tem.get_user_followers(user_id)
+    #print(follower)
     # save and check in database
-    # for i in range(len(follower[0])):
-    #     new_follower = instagram_follower(pk_follower=follower[0][i], username=follower[1][i])
-    #     new_follower.save()
+    #for i in follower:
+        #print(i)
+        #new_follower = Instagram_follower(pk_follower=i, username=tem.get_username_from_user_id(i))
+        #print(i)
+        #print(tem.get_username_from_user_id(i))
+        # new_follower.save()
     #     row = instagram_follower.objects.all()
     #     for r in row:
     #         if (new_follower == r):
     #             #print(new_follower)
     #             new_follower.delete()
-    username = request.session["username"]
+    #username = request.session["username"]
     print("username sesson:", username)
     user_login=Instagarm_login.objects.filter(username=username)
     print(user_login)
@@ -188,7 +194,11 @@ def settings(request):
     return render(request,'task/settings.html',context={'value_follow': value_follow,
                                                           'value_unfollow': value_unfollow,
                                                           'value_like': value_like,
+
+
                                                           'value_comment': value_comment})
+def save1():
+    print("save in folllower")
 
 def follows(request):
     return render(request,'task/follows.html')

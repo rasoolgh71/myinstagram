@@ -16,10 +16,10 @@ app.autodiscover_tasks()
 def debug_task(self):
     print('Request: {0!r}'.format(self.request))
 
-app.conf.beat_schedule = {
-    'health_test': {
-        'task': 'health_test',
-        'schedule': 10.0,
-        'args':'',
-    },
-}
+# app.conf.beat_schedule = {
+#     'health_test': {
+#         'task': 'health_test',
+#         'schedule': 10.0,
+#         'args':'',
+#     },
+# }
