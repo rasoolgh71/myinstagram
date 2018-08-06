@@ -18,13 +18,37 @@ from django.utils import timezone
 from mylogging import auth_log
 from task.models import Instagarm_login,Setting,Instagram_follower
 from instabot.bot import bot
+from django.contrib.sessions.models import Session
+from django.shortcuts import render_to_response
+
+from django.template import RequestContext
+#from background_task import background
+
+#from io import StringIO
+from .tasks import background1, save_follower
 
 
 tem=''
 
+
+
 def home(request):
+    #background.delay()
+
     return render(request,'task/home.html')
 
+#@background(schedule=60)
+#def print_background():
+    #print("task in background in 6 second")
+
+def background_follower():
+
+
+    # lookup user by id and send them a message
+    #user = User.objects.get(pk=user_id)
+    #user.email_user('Here is a notification', 'You have been notified')
+    print("thetask execute evrey 60 second")
+    print("follow user")
 
 class LoginView(FormView):
     """
@@ -36,8 +60,11 @@ class LoginView(FormView):
     success_url = 'task/login/'
     form_class = AuthenticationForm
 
+
     def post(self, request):
         #form = Login_view
+        #background1.delay(5)
+
         try:
             username = request.POST.get('username', '')
             password = request.POST.get('password', '')
@@ -46,8 +73,6 @@ class LoginView(FormView):
             user = authenticate(password=password, username=username)
             if user is not None:
                 login(request, user)
-
-
                 print("login is true")
                 auth_log.login_auth(username)
                 return HttpResponseRedirect('login')
@@ -57,6 +82,9 @@ class LoginView(FormView):
         except Exception as e:
             print(e)
 
+def get_username(request):
+    username = request.session["username"]
+    return username
 
 def login_insta(request):
     global tem
@@ -117,10 +145,20 @@ def login_insta(request):
                 return HttpResponseRedirect('/login')
         except Exception as e:
             print(e)
+    #s = Session.objects.all()
+    #for i in s:
+      #  print(i.get_decoded())
     return render(request, 'task/login.html')
+
+def render_response(req, *args, **kwargs):
+    print("render to response")
+    print("render to response")
+    kwargs['context_instance'] = RequestContext(req)
+    return render_to_response(*args, **kwargs)
 
 def get_insta(request):
     global tem
+    save_follower.delay(3)
     username = request.session["username"]
     #tem.getTotalFollowers(4129588825)
     user_id = tem.get_user_id_from_username(username)

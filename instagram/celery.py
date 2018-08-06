@@ -2,7 +2,9 @@ import os
 from celery import Celery
 from celery.schedules import crontab
 
+
 from django.conf import settings
+
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'instagram.settings')
 
@@ -14,12 +16,17 @@ app.autodiscover_tasks()
 
 @app.task(bind=True)
 def debug_task(self):
-    print('Request: {0!r}'.format(self.request))
+   print('Request: {0!r}'.format(self.request))
 
+# # @app.task(bind=True)
+# # def get_username(self):
+# #     print(self.request.user.username)
+#
 # app.conf.beat_schedule = {
 #     'health_test': {
 #         'task': 'health_test',
-#         'schedule': 10.0,
+#         'schedule': 100.0,
 #         'args':'',
 #     },
 # }
+#

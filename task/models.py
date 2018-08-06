@@ -31,4 +31,4 @@ class Setting(models.Model):
     unfollow = models.BooleanField(default=False)
     like = models.BooleanField(default=False)
     comment = models.BooleanField(default=False)
-    userid = models.ForeignKey("instagarm_login",on_delete=models.CASCADE)
+    userid = models.ForeignKey("Instagarm_login",on_delete=models.CASCADE)

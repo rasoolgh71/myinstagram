@@ -128,10 +128,10 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     '/var/www/static/',
 ]
-CELERY_BROKER_URL = 'amqp://'
-CELERY_RESULT_BACKEND ='db+sqlite:///django-db'
+ELERY_BROKER_URL =  'amqp://'
+CELERY_RESULT_BACKEND ='db+mysql://root:9121170207@localhost:3306/instagram'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER='json'
 CELERY_RESULT_SERIALIZER='json'
-#CELERY_BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
-#CELERYBEAT_SYNC_EVERY = 2
+CELERY_BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
+CELERYBEAT_SYNC_EVERY = 2
